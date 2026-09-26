@@ -8,7 +8,7 @@ export function generateWhatsAppOrderUrl(order: Order, phoneOverride?: string): 
   const storePhone =
     phoneOverride ||
     process.env.NEXT_PUBLIC_WHATSAPP_PHONE ||
-    "919876543210";
+    "919867241008";
 
   const cleanPhone = storePhone.replace(/\D/g, "");
 

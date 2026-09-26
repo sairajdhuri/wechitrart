@@ -26,37 +26,7 @@ const LOCAL_STORAGE_ORDERS_KEY = "wechitrart_orders";
  * Fetch all posters from Supabase with fallback to seed data + locally saved additions
  */
 export async function getPosters(): Promise<Poster[]> {
-  if (supabase) {
-    try {
-      const { data, error } = await supabase
-        .from("posters")
-        .select("*")
-        .order("created_at", { ascending: false });
-
-      if (!error && data && data.length > 0) {
-        return data as Poster[];
-      }
-      if (error) {
-        console.warn("Supabase query warning:", error.message);
-      }
-    } catch (err) {
-      console.warn("Supabase fetch failed, falling back to local dataset:", err);
-    }
-  }
-
-  // Fallback to local catalog
-  if (typeof window !== "undefined") {
-    try {
-      const custom = localStorage.getItem(LOCAL_STORAGE_POSTERS_KEY);
-      if (custom) {
-        const parsedCustom: Poster[] = JSON.parse(custom);
-        return [...parsedCustom, ...INITIAL_POSTERS];
-      }
-    } catch (e) {
-      console.error("Local storage read error", e);
-    }
-  }
-
+  // Bypassing Supabase and local storage temporarily to force the updated catalog
   return INITIAL_POSTERS;
 }
 

@@ -1,16 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
 
-const geistSans = Geist({
-  variable: "--font-font-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-font-mono",
-  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -37,9 +33,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
+      className={`${inter.variable} h-full antialiased`}
+      style={{ fontFamily: "var(--font-inter), system-ui, -apple-system, sans-serif" }}
     >
-      <body className="min-h-full flex flex-col bg-[#090d16] text-gray-100">
+      <body className="min-h-full flex flex-col bg-white text-black">
         <CartProvider>{children}</CartProvider>
       </body>
     </html>

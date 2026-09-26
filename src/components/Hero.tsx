@@ -43,7 +43,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreClick }) => {
           </button>
 
           <a
-            href="https://wa.me/919876543210?text=Hi%20Wechitrart!%20I%20would%20like%20to%20inquire%20about%20a%20custom%20poster%20design%20or%20framing."
+            href="https://wa.me/919867241008?text=Hi%20Wechitrart!%20I%20would%20like%20to%20inquire%20about%20a%20custom%20poster%20design%20or%20framing."
             target="_blank"
             rel="noopener noreferrer"
             className="px-7 py-3.5 rounded-xl bg-gray-900/80 hover:bg-gray-800 border border-gray-700/80 hover:border-gray-600 text-white font-semibold text-sm transition-all duration-200 flex items-center gap-2.5"

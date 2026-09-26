@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import confetti from "canvas-confetti";
-import { X, MessageCircle, CheckCircle2, Truck, ShieldCheck, ArrowRight, Sparkles } from "lucide-react";
+import { X, MessageCircle, CheckCircle2, ArrowRight } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { CustomerInfo, Order } from "@/types";
 import { generateWhatsAppOrderUrl } from "@/utils/whatsapp";
@@ -84,7 +84,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
           particleCount: 100,
           spread: 70,
           origin: { y: 0.6 },
-          colors: ["#f59e0b", "#10b981", "#3b82f6", "#ec4899"],
+          colors: ["#10b981", "#3b82f6", "#ec4899", "#facc15"],
         });
       } catch (err) {
         // Confetti is an enhancement, non-blocking
@@ -107,37 +107,37 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
       <div
-        className="relative w-full max-w-xl max-h-[92vh] overflow-y-auto rounded-3xl bg-gray-900 border border-gray-800 shadow-2xl p-6 sm:p-8"
+        className="relative w-full max-w-xl max-h-[92vh] overflow-y-auto rounded bg-white shadow-2xl p-6 sm:p-8"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-full bg-gray-800/80 hover:bg-gray-700 text-gray-400 hover:text-white transition cursor-pointer"
+          className="absolute top-5 right-5 p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500 hover:text-black transition cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
 
         {!orderCompleted ? (
-          <div>
+          <div className="text-black">
             {/* Header */}
             <div className="mb-6">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-semibold uppercase tracking-wider mb-2">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-50 text-green-700 border border-green-200 text-xs font-semibold uppercase tracking-wider mb-2">
                 <MessageCircle className="w-3.5 h-3.5" />
                 WhatsApp Direct Checkout
               </div>
-              <h2 className="text-2xl font-black text-white tracking-tight">
+              <h2 className="text-2xl font-bold tracking-tight">
                 Delivery & Order Details
               </h2>
-              <p className="text-xs text-gray-400 mt-1">
+              <p className="text-xs text-gray-500 mt-1">
                 Enter your delivery address. We will format a clean WhatsApp message and direct you to our studio for order confirmation.
               </p>
             </div>
 
             {errorMsg && (
-              <div className="mb-4 p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-medium">
+              <div className="mb-4 p-3 rounded bg-red-50 border border-red-200 text-red-600 text-xs font-medium">
                 {errorMsg}
               </div>
             )}
@@ -146,7 +146,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
             <form onSubmit={handleTriggerCheckout} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-xs font-bold text-gray-300 block mb-1">
+                  <label className="text-xs font-bold text-gray-700 block mb-1">
                     Full Name *
                   </label>
                   <input
@@ -156,12 +156,12 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
                     onChange={handleChange}
                     placeholder="e.g. Rahul Sharma"
                     required
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-gray-800 border border-gray-700 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-amber-500"
+                    className="w-full px-3.5 py-2.5 rounded bg-gray-50 border border-gray-200 text-sm text-black placeholder-gray-400 focus:outline-none focus:border-black"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-gray-300 block mb-1">
+                  <label className="text-xs font-bold text-gray-700 block mb-1">
                     WhatsApp Number *
                   </label>
                   <input
@@ -169,15 +169,15 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
                     name="phone"
                     value={customer.phone}
                     onChange={handleChange}
-                    placeholder="e.g. 9876543210"
+                    placeholder="e.g. 9867241008"
                     required
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-gray-800 border border-gray-700 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-amber-500"
+                    className="w-full px-3.5 py-2.5 rounded bg-gray-50 border border-gray-200 text-sm text-black placeholder-gray-400 focus:outline-none focus:border-black"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-xs font-bold text-gray-300 block mb-1">
+                <label className="text-xs font-bold text-gray-700 block mb-1">
                   Delivery Address *
                 </label>
                 <textarea
@@ -187,13 +187,13 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
                   rows={2}
                   placeholder="House/Flat number, Street name, Landmark"
                   required
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-gray-800 border border-gray-700 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-amber-500"
+                  className="w-full px-3.5 py-2.5 rounded bg-gray-50 border border-gray-200 text-sm text-black placeholder-gray-400 focus:outline-none focus:border-black"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-xs font-bold text-gray-300 block mb-1">
+                  <label className="text-xs font-bold text-gray-700 block mb-1">
                     City
                   </label>
                   <input
@@ -202,12 +202,12 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
                     value={customer.city}
                     onChange={handleChange}
                     placeholder="e.g. Mumbai"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-gray-800 border border-gray-700 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-amber-500"
+                    className="w-full px-3.5 py-2.5 rounded bg-gray-50 border border-gray-200 text-sm text-black placeholder-gray-400 focus:outline-none focus:border-black"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-gray-300 block mb-1">
+                  <label className="text-xs font-bold text-gray-700 block mb-1">
                     Pincode
                   </label>
                   <input
@@ -216,24 +216,24 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
                     value={customer.pincode}
                     onChange={handleChange}
                     placeholder="e.g. 400001"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-gray-800 border border-gray-700 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-amber-500"
+                    className="w-full px-3.5 py-2.5 rounded bg-gray-50 border border-gray-200 text-sm text-black placeholder-gray-400 focus:outline-none focus:border-black"
                   />
                 </div>
               </div>
 
               {/* Order Summary Recap */}
-              <div className="p-4 rounded-2xl bg-gray-800/40 border border-gray-800">
-                <div className="flex items-center justify-between text-xs text-gray-400 mb-1">
+              <div className="p-4 rounded bg-gray-50 border border-gray-200">
+                <div className="flex items-center justify-between text-xs text-gray-600 mb-1">
                   <span>Cart Items ({cart.length})</span>
                   <span>₹{subtotal.toFixed(0)}</span>
                 </div>
-                <div className="flex items-center justify-between text-xs text-gray-400 mb-2">
+                <div className="flex items-center justify-between text-xs text-gray-600 mb-2">
                   <span>Standard Packaging & Shipping</span>
-                  <span className="text-emerald-400 font-semibold">FREE</span>
+                  <span className="text-green-600 font-semibold">FREE</span>
                 </div>
-                <div className="flex items-center justify-between text-sm font-black text-white pt-2 border-t border-gray-700/60">
+                <div className="flex items-center justify-between text-sm font-bold text-black pt-2 border-t border-gray-200">
                   <span>Total Amount Payable</span>
-                  <span className="text-amber-400 text-base">₹{totalAmount.toFixed(0)}</span>
+                  <span className="text-base">₹{totalAmount.toFixed(0)}</span>
                 </div>
               </div>
 
@@ -241,13 +241,13 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
               <button
                 type="submit"
                 disabled={isSubmitting || cart.length === 0}
-                className="w-full py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-gray-950 font-black text-sm shadow-xl shadow-emerald-500/20 hover:shadow-emerald-500/30 transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
+                className="w-full py-4 rounded bg-green-600 hover:bg-green-700 text-white font-bold text-sm transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
               >
                 {isSubmitting ? (
                   <span>Generating Order...</span>
                 ) : (
                   <>
-                    <MessageCircle className="w-5 h-5 fill-gray-950 text-emerald-400" />
+                    <MessageCircle className="w-5 h-5 text-white" />
                     <span>Proceed & Open in WhatsApp</span>
                     <ArrowRight className="w-4 h-4" />
                   </>
@@ -257,18 +257,18 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
           </div>
         ) : (
           /* Order Complete State */
-          <div className="text-center py-6">
-            <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center mx-auto mb-4 text-emerald-400">
+          <div className="text-center py-6 text-black">
+            <div className="w-16 h-16 rounded-full bg-green-50 border border-green-100 flex items-center justify-center mx-auto mb-4 text-green-600">
               <CheckCircle2 className="w-8 h-8" />
             </div>
 
-            <span className="text-xs font-bold text-amber-400 uppercase tracking-widest block mb-1">
+            <span className="text-xs font-bold text-gray-500 uppercase tracking-widest block mb-1">
               Order Initiated
             </span>
-            <h2 className="text-2xl font-black text-white tracking-tight mb-2">
+            <h2 className="text-2xl font-bold tracking-tight mb-2">
               Order #{orderNumber} Generated!
             </h2>
-            <p className="text-xs text-gray-300 max-w-sm mx-auto mb-6">
+            <p className="text-xs text-gray-500 max-w-sm mx-auto mb-6">
               WhatsApp was opened in a new tab with your pre-filled cart receipt.
               If it didn&apos;t open automatically, click the button below:
             </p>
@@ -278,17 +278,17 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
                 href={generatedUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-gray-950 font-bold text-sm shadow-lg shadow-emerald-500/25 transition cursor-pointer mb-4"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded bg-green-600 hover:bg-green-700 text-white font-bold text-sm transition cursor-pointer mb-4"
               >
-                <MessageCircle className="w-4 h-4 fill-gray-950" />
+                <MessageCircle className="w-4 h-4 text-white" />
                 <span>Open WhatsApp Chat Again</span>
               </a>
             )}
 
-            <div className="pt-4 border-t border-gray-800">
+            <div className="pt-4 border-t border-gray-200 mt-4">
               <button
                 onClick={onClose}
-                className="px-6 py-2.5 rounded-xl bg-gray-800 text-gray-300 hover:text-white text-xs font-semibold transition cursor-pointer"
+                className="px-6 py-2.5 rounded bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-black text-xs font-semibold transition cursor-pointer"
               >
                 Continue Browsing Posters
               </button>

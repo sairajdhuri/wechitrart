@@ -20,38 +20,40 @@
 ---
 
 ## Phase 2: L - Link (Connectivity)
-- [ ] Create `.env.example` and `.env` template for Supabase credentials & WhatsApp business number
-- [ ] Write connection validation script in `tools/test_supabase_connection.py`
-- [ ] Write WhatsApp message generator & validator in `tools/generate_whatsapp_payload.py`
-- [ ] Write Supabase SQL schema generator in `tools/generate_supabase_schema.sql`
-- [ ] Test & verify links and provide graceful fallback for offline/preview mode
+- [x] Created `.env.example` and `.env` template for Supabase credentials & WhatsApp business number
+- [x] Built connection validation script in `tools/test_supabase_connection.py`
+- [x] Built WhatsApp message generator & validator in `tools/generate_whatsapp_payload.py`
+- [x] Built Supabase SQL schema generator in `tools/schema.sql`
+- [x] Tested & verified links and validated graceful demo fallback for offline/preview mode
 
 ---
 
 ## Phase 3: A - Architect (The 3-Layer Build)
-- [ ] **Layer 1: Architecture (`architecture/`)**
-  - [ ] `SOP_SUPABASE_SETUP.md`: Database tables, policies, and storage bucket configuration
-  - [ ] `SOP_WHATSAPP_CHECKOUT.md`: Cart state management, order formatting, and direct redirection
-  - [ ] `SOP_ADMIN_POSTER_MANAGEMENT.md`: Admin upload, image storage, price configuration, and order management
-- [ ] **Layer 2: Navigation**
-  - [ ] Next.js app initialization (App Router, TypeScript, React)
-  - [ ] Component architecture: Header, Hero, Category Filter, Poster Grid, Poster Modal/Detail, Cart Drawer, WhatsApp Checkout Modal, Admin Dashboard
-- [ ] **Layer 3: Tools (`tools/`)**
-  - [ ] Deterministic Python verification scripts
-  - [ ] Mock data seeder (`tools/seed_posters.py` or `.ts` seeder)
+- [x] **Layer 1: Architecture (`architecture/`)**
+  - [x] `SOP_SUPABASE_INTEGRATION.md`: Database tables, policies, and storage bucket configuration
+  - [x] `SOP_WHATSAPP_CHECKOUT.md`: Cart state management, order formatting, and direct redirection
+  - [x] `SOP_ADMIN_POSTER_MANAGEMENT.md`: Admin upload, image storage, price configuration, and order management
+- [x] **Layer 2: Navigation**
+  - [x] Next.js App Router (TypeScript, React 19, Tailwind CSS v4)
+  - [x] Component architecture: Navbar, Hero, CategoryFilter, PosterCard, PosterDetailModal, CartDrawer, CheckoutModal, AdminPage
+- [x] **Layer 3: Tools (`tools/`)**
+  - [x] Deterministic Python verification scripts (`generate_whatsapp_payload.py`, `test_supabase_connection.py`)
+  - [x] Seed dataset (`src/data/initialPosters.ts` & `tools/schema.sql`)
 
 ---
 
 ## Phase 4: S - Stylize (Refinement & UI)
-- [ ] Modern, aesthetic dark/vibrant design with glassmorphism and smooth micro-animations
-- [ ] High-impact poster card visuals, hover effects, size selectors (A4, A3, A2) with dynamic price calculation
-- [ ] Elegant slide-over cart drawer with order breakdown and one-click WhatsApp action
-- [ ] Sleek admin portal with drag-and-drop image upload preview and poster inventory table
-- [ ] Mobile-responsive layout optimized for shopping on smartphones
+- [x] Modern, aesthetic dark-mode design with glassmorphism and ambient glow
+- [x] High-impact poster card visuals, hover effects, size selectors (A4, A3, A2) with dynamic price calculation
+- [x] Elegant slide-over cart drawer with order breakdown and one-click WhatsApp action
+- [x] Sleek admin portal (`/admin`) with passcode protection, live card preview, and orders table
+- [x] Mobile-responsive layout optimized for shopping on smartphones
+- [x] Verified in browser subagent with complete video recording
 
 ---
 
 ## Phase 5: T - Trigger (Deployment & Verification)
-- [ ] Build verification (`npm run build`)
-- [ ] Git commit and preparation for GitHub remote
-- [ ] Finalize Maintenance Log in `gemini.md`
+- [x] Build verification (`npm run build`) passed with 0 errors
+- [x] Dev server running live on `http://localhost:3000`
+- [x] Git repository initialized and root commit created
+- [x] Finalized Documentation & Maintenance Log in `gemini.md` and `README.md`

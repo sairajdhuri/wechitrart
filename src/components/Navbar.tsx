@@ -2,112 +2,108 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ShoppingCart, ShieldCheck, Search, Sparkles } from "lucide-react";
+import Image from "next/image";
+import { Search, Heart, ShoppingCart, ChevronDown, Menu, X } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { useRouter } from "next/navigation";
 
-interface NavbarProps {
-  onSearchChange?: (query: string) => void;
-  selectedCategory?: string;
-  onSelectCategory?: (category: string) => void;
-}
-
-export const Navbar: React.FC<NavbarProps> = ({
-  onSearchChange,
-}) => {
-  const { totalItemsCount, setIsCartOpen, subtotal } = useCart();
-  const [searchVal, setSearchVal] = useState("");
-
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchVal(e.target.value);
-    onSearchChange?.(e.target.value);
-  };
+export const Navbar = () => {
+  const { totalItemsCount, setIsCartOpen } = useCart();
+  const router = useRouter();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 w-full glass-nav">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Brand Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 via-amber-400 to-yellow-300 flex items-center justify-center shadow-lg shadow-amber-500/20 group-hover:scale-105 transition-transform duration-200">
-              <Sparkles className="w-5 h-5 text-gray-950 fill-gray-950" />
-            </div>
-            <div>
-              <div className="flex items-center gap-1.5">
-                <span className="font-extrabold text-xl tracking-tight text-white group-hover:text-amber-400 transition-colors">
-                  WECHITRART
-                </span>
-                <span className="text-[10px] font-semibold uppercase tracking-widest px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">
-                  STUDIO
-                </span>
-              </div>
-              <p className="text-[11px] text-gray-400 font-medium tracking-wide">
-                Archival Wall Art & Prints
-              </p>
+    <>
+      <header className="w-full bg-[#111111] text-white relative z-50">
+        <div className="max-w-[1600px] w-full mx-auto px-5 sm:px-12 lg:px-24 h-[70px] sm:h-[85px] flex items-center justify-between relative">
+          
+          {/* Logo — overlapping the navbar bottom edge */}
+          {/* Scaled down on mobile to prevent taking too much vertical space */}
+          <Link href="/" className="absolute left-5 sm:left-12 lg:left-24 top-2 sm:top-2 z-50">
+            <div className="relative w-[90px] h-[90px] sm:w-[130px] sm:h-[130px] rounded-full overflow-hidden bg-black shadow-lg">
+              <Image
+                src="/logo1.png"
+                alt="Wechitrart"
+                fill
+                className="object-cover scale-[1.05]"
+                priority
+              />
             </div>
           </Link>
 
-          {/* Search Bar */}
-          <div className="hidden md:flex items-center flex-1 max-w-md mx-8">
-            <div className="relative w-full">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-              <input
-                type="text"
-                value={searchVal}
-                onChange={handleSearch}
-                placeholder="Search cyberpunk, botanical, abstract, anime..."
-                className="w-full pl-10 pr-4 py-2.5 rounded-full bg-gray-900/80 border border-gray-800 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/50 transition-all"
-              />
-            </div>
-          </div>
+          {/* Spacer for absolute logo */}
+          <div className="w-[90px] sm:w-[130px] shrink-0"></div>
 
-          {/* Right Action Buttons */}
-          <div className="flex items-center gap-3">
-            {/* Admin Dashboard Link */}
-            <Link
-              href="/admin"
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-gray-300 hover:text-white bg-gray-900/60 hover:bg-gray-800/80 border border-gray-800 transition-all"
-              title="Admin Design Portal"
+          {/* Center Links (Desktop) */}
+          <nav className="hidden lg:flex items-center gap-10 text-[11px] font-bold tracking-[0.15em] uppercase ml-12">
+            <Link href="/" className="hover:opacity-70 transition">Home</Link>
+            <button 
+              onClick={() => router.push("/posters")} 
+              className="flex items-center gap-1.5 hover:opacity-70 transition cursor-pointer bg-transparent border-none text-[11px] font-bold tracking-[0.15em] uppercase text-white p-0"
             >
-              <ShieldCheck className="w-4 h-4 text-amber-400" />
-              <span className="hidden sm:inline">Admin Portal</span>
-            </Link>
+              Posters <ChevronDown className="w-3.5 h-3.5 stroke-[3]" />
+            </button>
+            <Link href="/" className="hover:opacity-70 transition">Custom Products</Link>
+            <Link href="/" className="hover:opacity-70 transition">Reviews</Link>
+            <button className="flex items-center gap-1.5 hover:opacity-70 transition cursor-pointer bg-transparent border-none text-[11px] font-bold tracking-[0.15em] uppercase text-white p-0">
+              Customer Support <ChevronDown className="w-3.5 h-3.5 stroke-[3]" />
+            </button>
+          </nav>
 
-            {/* Shopping Cart Button */}
+          {/* Right Icons */}
+          <div className="flex items-center gap-5 sm:gap-7 ml-auto">
+            <Search className="w-5 h-5 stroke-[1.5] cursor-pointer hover:opacity-70 transition hidden sm:block" />
+            <Heart className="w-5 h-5 stroke-[1.5] cursor-pointer hover:opacity-70 transition hidden sm:block" />
+            
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative flex items-center gap-2.5 px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-gray-950 font-bold text-sm shadow-lg shadow-amber-500/20 hover:shadow-amber-500/30 transition-all duration-200 cursor-pointer"
-              aria-label="View shopping cart"
+              className="relative cursor-pointer hover:opacity-70 transition bg-transparent border-none p-0 text-white"
+              aria-label="Open Cart"
             >
-              <ShoppingCart className="w-4 h-4 text-gray-950" />
-              <span className="hidden sm:inline">Cart</span>
+              <ShoppingCart className="w-5 h-5 stroke-[1.5]" />
               {totalItemsCount > 0 && (
-                <span className="flex items-center justify-center bg-gray-950 text-amber-400 text-xs font-black px-2 py-0.5 rounded-full shadow-inner">
+                <span className="absolute -top-2 -right-2.5 bg-white text-black text-[9px] font-bold w-[18px] h-[18px] flex items-center justify-center rounded-full">
                   {totalItemsCount}
                 </span>
               )}
-              {totalItemsCount > 0 && (
-                <span className="hidden lg:inline text-xs opacity-90 pl-1 border-l border-gray-950/20">
-                  ₹{subtotal.toFixed(0)}
-                </span>
-              )}
+            </button>
+
+            {/* Mobile Menu Toggle */}
+            <button 
+              className="lg:hidden ml-2 text-white bg-transparent border-none p-0"
+              onClick={() => setMobileMenuOpen(true)}
+            >
+              <Menu className="w-6 h-6 stroke-[1.5]" />
             </button>
           </div>
         </div>
+      </header>
 
-        {/* Mobile Search Bar */}
-        <div className="md:hidden pb-3">
-          <div className="relative w-full">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-            <input
-              type="text"
-              value={searchVal}
-              onChange={handleSearch}
-              placeholder="Search poster designs..."
-              className="w-full pl-10 pr-4 py-2 rounded-xl bg-gray-900/90 border border-gray-800 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:border-amber-500"
-            />
+      {/* Mobile Menu Overlay */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-[60] bg-black text-white flex flex-col pt-6 px-6">
+          <div className="flex justify-end mb-10">
+            <button 
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-white bg-transparent border-none p-2"
+            >
+              <X className="w-8 h-8 stroke-[1.5]" />
+            </button>
           </div>
+          <nav className="flex flex-col gap-8 text-[16px] font-bold tracking-[0.15em] uppercase">
+            <Link href="/" onClick={() => setMobileMenuOpen(false)}>Home</Link>
+            <button 
+              onClick={() => { setMobileMenuOpen(false); router.push("/posters"); }}
+              className="text-left bg-transparent border-none text-[16px] font-bold tracking-[0.15em] uppercase text-white p-0"
+            >
+              Posters
+            </button>
+            <Link href="/" onClick={() => setMobileMenuOpen(false)}>Custom Products</Link>
+            <Link href="/" onClick={() => setMobileMenuOpen(false)}>Reviews</Link>
+            <Link href="/" onClick={() => setMobileMenuOpen(false)}>Customer Support</Link>
+          </nav>
         </div>
-      </div>
-    </header>
+      )}
+    </>
   );
 };
